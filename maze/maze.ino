@@ -1,11 +1,11 @@
 
 #include <Servo.h>
 #define speedPinR 3   // RIGHT PWM pin connect MODEL-X ENA
-#define RightDirectPin1  12    //  Right Motor direction pin 1 to MODEL-X IN1 
-#define RightDirectPin2  11    // Right Motor direction pin 2 to MODEL-X IN2
+#define RightMotorDirPin1  12   //Right Motor direction pin 1 to MODEL-X IN1 
+#define RightMotorDirPin2  11   //Right Motor direction pin 2 to MODEL-X IN2
 #define speedPinL 6        //  Left PWM pin connect MODEL-X ENB
-#define LeftDirectPin1  7    // Left Motor direction pin 1 to MODEL-X IN3
-#define LeftDirectPin2  8   ///Left Motor direction pin 1 to MODEL-X IN4
+#define LeftMotorDirPin1  7     //Left Motor direction pin 1 to MODEL-X IN3 
+#define LeftMotorDirPin2  8     //Left Motor direction pin 2 to MODEL-X IN4 
 #define LPT 2 // scan loop counter
 #define SERVO_PIN     9  //servo connect to D9
 #define Echo_PIN    2 // Ultrasonic Echo pin connect to D11
@@ -111,7 +111,7 @@ float distanceFront()
 {
   head.write(90); //90 aims the ultrasonic sensor straight forward
   delay(100);
-  center = watch();
+  float center = watch();
   return center;
 }
 
@@ -120,7 +120,7 @@ float distanceLeft()
 {
   head.write(180); //180 aims the ultrasonic sensor to the left. If 180 does not work, use 170
   delay(100);
-  left = watch();
+  float left = watch();
   return left;
 }
 
@@ -129,27 +129,27 @@ float distanceRight()
 {
   head.write(0); //0 aims the ultrasonic sensor to the right
   delay(100);
-  left = watch();
-  return left;
+  float right = watch();
+  return right;
 }
 
 void setup()
 {
   /*setup L298N pin mode*/
-  pinMode(RightDirectPin1, OUTPUT); 
-  pinMode(RightDirectPin2, OUTPUT); 
+  pinMode(RightMotorDirPin1, OUTPUT); 
+  pinMode(RightMotorDirPin2, OUTPUT); 
   pinMode(speedPinL, OUTPUT);  
-  pinMode(LeftDirectPin1, OUTPUT);
-  pinMode(LeftDirectPin2, OUTPUT); 
+  pinMode(LeftMotorDirPin1, OUTPUT);
+  pinMode(LeftMotorDirPin2, OUTPUT); 
   pinMode(speedPinR, OUTPUT); 
-  stop_Stop();//stop move
+  brake();//stop move
   /*init HC-SR04*/
   pinMode(Trig_PIN, OUTPUT); 
   pinMode(Echo_PIN,INPUT); 
   /*init buzzer*/
   pinMode(BUZZ_PIN, OUTPUT);
   digitalWrite(BUZZ_PIN, HIGH);  
-  buzz_OFF(); 
+  buzz_Off(); 
   digitalWrite(Trig_PIN,LOW);
   /*init servo*/
   head.attach(SERVO_PIN); 
