@@ -45,7 +45,7 @@ boolean RightFirstOnWhite(){
 }
 
 /*Defining the robot's movements*/
-void go_straight(void)  //Forward
+void go_straight(int t=0)  //Forward
 {
   digitalWrite(RightMotorDirPin1, HIGH);
   digitalWrite(RightMotorDirPin2,LOW);
@@ -53,6 +53,7 @@ void go_straight(void)  //Forward
   digitalWrite(LeftMotorDirPin2,LOW);
   analogWrite(speedPinL,SPEED);
   analogWrite(speedPinR,SPEED);
+  delay(t);
 }
 void turn_Left(int t=0)  //Turn left for t milliseconds
 {
