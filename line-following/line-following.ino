@@ -41,7 +41,7 @@ boolean RightSecondOnWhite(){
 
 //Return true if 1st light sensor from the right is on a white surface
 boolean RightFirstOnWhite(){
-  return digitalRead(A0); 
+  return digitalRead(A4); 
 }
 
 /*Defining the robot's movements*/
