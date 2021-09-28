@@ -1,11 +1,11 @@
 
 #include <Servo.h>
 #define speedPinR 3   // RIGHT PWM pin connect MODEL-X ENA
-#define RightMotorDirPin1  12   //Right Motor direction pin 1 to MODEL-X IN1 
-#define RightMotorDirPin2  11   //Right Motor direction pin 2 to MODEL-X IN2
+#define RightMotorDirPin1  12    //  Right Motor direction pin 1 to MODEL-X IN1 
+#define RightMotorDirPin2  11    // Right Motor direction pin 2 to MODEL-X IN2
 #define speedPinL 6        //  Left PWM pin connect MODEL-X ENB
-#define LeftMotorDirPin1  7     //Left Motor direction pin 1 to MODEL-X IN3 
-#define LeftMotorDirPin2  8     //Left Motor direction pin 2 to MODEL-X IN4 
+#define LeftMotorDirPin1  7    // Left Motor direction pin 1 to MODEL-X IN3
+#define LeftMotorDirPin2  8   ///Left Motor direction pin 1 to MODEL-X IN4
 #define LPT 2 // scan loop counter
 #define SERVO_PIN     9  //servo connect to D9
 #define Echo_PIN    2 // Ultrasonic Echo pin connect to D11
@@ -14,11 +14,14 @@
 #define SPEED  120     //both sides of the motor speed
 const int distancelimit = 15; //distance limit for obstacles in front (in cm)           
 const int sidedistancelimit = 15; //distance in cm to obstacles at both sides (in cm)   
+int left =0; 
+int center = 0; 
+int right = 0; 
 
 Servo head;
 /*motor control*/
 /*Defining the robot's movements*/
-void go_straight(int t= 0)  //Forward
+void go_straight(void)  //Forward
 {
   digitalWrite(RightMotorDirPin1, HIGH);
   digitalWrite(RightMotorDirPin2,LOW);
@@ -26,7 +29,6 @@ void go_straight(int t= 0)  //Forward
   digitalWrite(LeftMotorDirPin2,LOW);
   analogWrite(speedPinL,SPEED);
   analogWrite(speedPinR,SPEED);
-  delay(t);
 }
 void turn_Left(int t=0)  //Turn left for t milliseconds
 {
@@ -112,7 +114,7 @@ float distanceFront()
 {
   head.write(90); //90 aims the ultrasonic sensor straight forward
   delay(100);
-  float center = watch();
+  center = watch();
   return center;
 }
 
@@ -121,7 +123,7 @@ float distanceLeft()
 {
   head.write(180); //180 aims the ultrasonic sensor to the left. If 180 does not work, use 170
   delay(100);
-  float left = watch();
+  left = watch();
   return left;
 }
 
@@ -130,8 +132,8 @@ float distanceRight()
 {
   head.write(0); //0 aims the ultrasonic sensor to the right
   delay(100);
-  float right = watch();
-  return right;
+  right = watch();
+  return left;
 }
 
 void setup()
