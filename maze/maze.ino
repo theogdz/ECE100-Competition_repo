@@ -1,4 +1,3 @@
-
 #include <Servo.h>
 #define speedPinR 3   // RIGHT PWM pin connect MODEL-X ENA
 #define RightMotorDirPin1  12    //  Right Motor direction pin 1 to MODEL-X IN1 
@@ -11,17 +10,21 @@
 #define Echo_PIN    2 // Ultrasonic Echo pin connect to D11
 #define Trig_PIN    10  // Ultrasonic Trig pin connect to D12
 #define BUZZ_PIN     13
-#define SPEED  120     //both sides of the motor speed
+#define SPEED_R  80     //both sides of the motor speed
+#define SPEED_L 130
+#define SPEED_RT 100
+#define SPEED_LT 162
+#define SPEED 100
 const int distancelimit = 15; //distance limit for obstacles in front (in cm)           
 const int sidedistancelimit = 15; //distance in cm to obstacles at both sides (in cm)   
-int left =0; 
-int center = 0; 
-int right = 0; 
+//int left =0; 
+//int center = 0; 
+//int right = 0; 
 
 Servo head;
 /*motor control*/
 /*Defining the robot's movements*/
-void go_straight(void)  //Forward
+void go_straight(int t =0)  //Forward
 {
   digitalWrite(RightMotorDirPin1, HIGH);
   digitalWrite(RightMotorDirPin2,LOW);
@@ -29,13 +32,14 @@ void go_straight(void)  //Forward
   digitalWrite(LeftMotorDirPin2,LOW);
   analogWrite(speedPinL,SPEED);
   analogWrite(speedPinR,SPEED);
+  delay(t);
 }
 void turn_Left(int t=0)  //Turn left for t milliseconds
 {
   digitalWrite(RightMotorDirPin1, HIGH);
   digitalWrite(RightMotorDirPin2,LOW);
   digitalWrite(LeftMotorDirPin1,LOW);
-  digitalWrite(LeftMotorDirPin2,HIGH);
+  digitalWrite(LeftMotorDirPin2,LOW);
   analogWrite(speedPinL,SPEED);
   analogWrite(speedPinR,SPEED);
   delay(t);
@@ -43,7 +47,7 @@ void turn_Left(int t=0)  //Turn left for t milliseconds
 void turn_Right(int t=0)  //Turn right for t milliseconds
 {
   digitalWrite(RightMotorDirPin1, LOW);
-  digitalWrite(RightMotorDirPin2,HIGH);
+  digitalWrite(RightMotorDirPin2,LOW);
   digitalWrite(LeftMotorDirPin1,HIGH);
   digitalWrite(LeftMotorDirPin2,LOW);
   analogWrite(speedPinL,SPEED);
@@ -60,12 +64,13 @@ void reverse(int t=0)  //Reverse for t milliseconds
   analogWrite(speedPinR,SPEED);
   delay(t);
 }
-void brake()    //Stop
+void brake(int t = 0)    //Stop
 {
   digitalWrite(RightMotorDirPin1, LOW);
   digitalWrite(RightMotorDirPin2,LOW);
   digitalWrite(LeftMotorDirPin1,LOW);
   digitalWrite(LeftMotorDirPin2,LOW);
+  delay(t);
 }
 /*set motor speed */
 void set_Motorspeed(int speed_L,int speed_R)
@@ -106,7 +111,7 @@ int watch()
   digitalWrite(Trig_PIN,LOW);
   echo_distance=pulseIn(Echo_PIN,HIGH);
   echo_distance=echo_distance*0.01657; //how far away is the object in cm
-  return round(echo_distance);
+  return echo_distance;
 }
 
 // Measures the distance between the front wall and the robot. Returns the value in cm
@@ -114,7 +119,7 @@ float distanceFront()
 {
   head.write(90); //90 aims the ultrasonic sensor straight forward
   delay(100);
-  center = watch();
+  float center = watch();
   return center;
 }
 
@@ -123,7 +128,7 @@ float distanceLeft()
 {
   head.write(180); //180 aims the ultrasonic sensor to the left. If 180 does not work, use 170
   delay(100);
-  left = watch();
+  float left = watch();
   return left;
 }
 
@@ -132,8 +137,8 @@ float distanceRight()
 {
   head.write(0); //0 aims the ultrasonic sensor to the right
   delay(100);
-  right = watch();
-  return left;
+  float right = watch();
+  return right;
 }
 
 void setup()
@@ -163,8 +168,5 @@ void setup()
 }
 
 void loop()
-{
-/*
- Use the functions given to you to write your code for this competition. Feel free to change them to accomate your needs.
- */
+/* Be Creative! */
 }
