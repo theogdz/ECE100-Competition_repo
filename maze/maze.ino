@@ -39,7 +39,7 @@ void turn_Left(int t=0)  //Turn left for t milliseconds
   digitalWrite(RightMotorDirPin1, HIGH);
   digitalWrite(RightMotorDirPin2,LOW);
   digitalWrite(LeftMotorDirPin1,LOW);
-  digitalWrite(LeftMotorDirPin2,LOW);
+  digitalWrite(LeftMotorDirPin2,HIGH);
   analogWrite(speedPinL,SPEED);
   analogWrite(speedPinR,SPEED);
   delay(t);
@@ -47,7 +47,7 @@ void turn_Left(int t=0)  //Turn left for t milliseconds
 void turn_Right(int t=0)  //Turn right for t milliseconds
 {
   digitalWrite(RightMotorDirPin1, LOW);
-  digitalWrite(RightMotorDirPin2,LOW);
+  digitalWrite(RightMotorDirPin2,HIGH);
   digitalWrite(LeftMotorDirPin1,HIGH);
   digitalWrite(LeftMotorDirPin2,LOW);
   analogWrite(speedPinL,SPEED);
