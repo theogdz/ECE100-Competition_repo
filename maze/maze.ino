@@ -10,16 +10,9 @@
 #define Echo_PIN    2 // Ultrasonic Echo pin connect to D11
 #define Trig_PIN    10  // Ultrasonic Trig pin connect to D12
 #define BUZZ_PIN     13
-#define SPEED_R  80     //both sides of the motor speed
-#define SPEED_L 130
-#define SPEED_RT 100
-#define SPEED_LT 162
-#define SPEED 100
+#define SPEED 150
 const int distancelimit = 15; //distance limit for obstacles in front (in cm)           
-const int sidedistancelimit = 15; //distance in cm to obstacles at both sides (in cm)   
-//int left =0; 
-//int center = 0; 
-//int right = 0; 
+const int sidedistancelimit = 15; //distance in cm to obstacles at both sides (in cm)    
 
 Servo head;
 /*motor control*/
@@ -118,7 +111,7 @@ int watch()
 float distanceFront()
 {
   head.write(90); //90 aims the ultrasonic sensor straight forward
-  delay(100);
+  delay(150);
   float center = watch();
   return center;
 }
@@ -127,7 +120,7 @@ float distanceFront()
 float distanceLeft()
 {
   head.write(180); //180 aims the ultrasonic sensor to the left. If 180 does not work, use 170
-  delay(100);
+  delay(150);
   float left = watch();
   return left;
 }
@@ -136,7 +129,7 @@ float distanceLeft()
 float distanceRight()
 {
   head.write(0); //0 aims the ultrasonic sensor to the right
-  delay(100);
+  delay(150);
   float right = watch();
   return right;
 }
